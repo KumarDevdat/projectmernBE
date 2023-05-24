@@ -1,0 +1,1 @@
+module.exports.activityService = require('./activity.service');
