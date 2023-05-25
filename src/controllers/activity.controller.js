@@ -4,12 +4,17 @@ const catchAsync = require("../utils/catchAsync");
 const { ObjectId } = require("mongodb");
 
 const getActivity = catchAsync(async (req, res, next) => {
-  const { page, limit } = req.query;
-  const pageNumber = parseInt(page) || 1;
-  const itemsPerPage = parseInt(limit) || 10;
-
   try {
-    const result = await activityService.getActivity(pageNumber, itemsPerPage);
+    const result = await activityService.getActivity();
+    res.send({ result, msg: "Get Successful!", status: 200 });
+  } catch (error) {
+    next(error);
+  }
+});
+const getActivityPagination = catchAsync(async (req, res, next) => {
+  try {
+    const { page, limit } = req.query;
+    const result = await activityService.pagination(page, limit);
     res.send({ result, msg: "Get Successful!", status: 200 });
   } catch (error) {
     next(error);
@@ -74,4 +79,5 @@ module.exports = {
   saveActivity,
   deleteActivity,
   updateActivity,
+  getActivityPagination,
 };

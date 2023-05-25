@@ -42,9 +42,23 @@ const deleteActivity = async (activityId) => {
     throw error;
   }
 };
+const pagination = async (page, limit) => {
+  const pageNumber = parseInt(page) || 1;
+  const pageSize = parseInt(limit) || 3;
+  const skip = (pageNumber - 1) * pageSize;
+  const totalUsers = await Activity.countDocuments();
+  const totalPages = Math.ceil(totalUsers / pageSize);
+  const getActivity = await Activity.find().skip(skip).limit(pageSize);
+  return {
+    getActivity,
+    totalPages,
+    currentPage: pageNumber,
+  };
+};
 module.exports = {
   getActivity,
   createActivity,
   updateActivity,
   deleteActivity,
+  pagination,
 };
