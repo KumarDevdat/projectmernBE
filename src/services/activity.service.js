@@ -32,7 +32,6 @@ const updateActivity = async (activityId, updateBody) => {
 const deleteActivity = async (activityId) => {
   try {
     const deletedItem= await Activity.findByIdAndDelete(activityId);
-    console.log(deletedItem)
     if (!deletedItem) {
         throw new ApiError(httpStatus.NOT_FOUND, "Actvity not found");
       }
