@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const validator = require('validator');
 const activitySchema = mongoose.Schema(
   {
     activitytype: {
@@ -8,14 +8,24 @@ const activitySchema = mongoose.Schema(
     },
     description: {
       type: String,
+      required:true,
     },
     date: {
       type: String,
       required: true,
+      validate: {
+        validator: function(value) {
+          
+          return validator.isAfter(value.toString(), new Date().toISOString());
+        },
+        message: 'Date must be a future date'
+      }
     },
     duration: {
-      type: String,
+      type: Number,
       required: true,
+      min:0,
+      max:60
     },
   },
   {
