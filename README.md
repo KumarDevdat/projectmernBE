@@ -1,6 +1,6 @@
 # Backend Activity Tracker App
 
-This is the backend application for an activity tracker app. It provides API endpoints to manage activities.
+This is the backend application for an activity tracker app, and it provides API endpoints to manage activities.
 
 ## Installation
 
